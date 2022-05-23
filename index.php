@@ -69,7 +69,7 @@ include './db-php/queryphp.php';
                 </div>
                 <div class="col-4">
                     <div class="row">
-                        <div class="col-lg-12 col-12"><img class="rounded-circle" alt="Chuyên nghiệp" src="https://binbrand.vn/upload/images/1Thiet%20ke%20Logo/top%20c%C3%B4ng%20ty%20thi%E1%BA%BFt%20k%E1%BA%BF%20logo%20chuy%C3%AAn%20nghi%E1%BB%87p.png" width="80" height="80"></div>
+                        <div class="col-lg-12 col-12"><img class="rounded-circle" alt="Chuyên nghiệp" src="https://iweb.tatthanh.com.vn/pic/3/service/images/thiet-ke-website-quang-cao(21).png" width="80" height="80"></div>
                         <div class="col-lg-12 col-12 ml-1">
                             <h4>Chuyên nghiệp</h4>
                         </div>

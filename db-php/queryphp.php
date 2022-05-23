@@ -1,7 +1,7 @@
 <?php
 #truy van carousel image
 $arrayImg = array();
-$connect = mysqli_connect("localhost", "root", "", "trangchu-carousel");
+$connect = mysqli_connect("localhost", "root", "", "trangchu_carousel");
 $select = "SELECT * FROM `calrouselimg` ORDER BY uploaded_on desc LIMIT 3";
 $imgList = mysqli_query($connect, $select);
 if (mysqli_num_rows($imgList) > 0) {
