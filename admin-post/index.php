@@ -32,7 +32,7 @@ if (isset($_POST['Posts']) || isset($_POST['savePost'])) {
                 <div class="col-8  p-4">
 
                     <div class="row mt-3">
-                        <input name="NameContent" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" value="<?php echo "Hello" ?>">
+                        <input name="NameContent" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" placeholder='Tiêu đề bài viết'>
                     </div>
                     <div class="row mt-3">
                         <textarea class="col-12" name="textareaContent" id="textarea" placeholder="Nội dung"></textarea>
