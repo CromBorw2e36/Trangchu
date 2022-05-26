@@ -23,4 +23,5 @@ if ($query->num_rows > 0) {
     <p>No image(s) found...</p>
 <?php
 }
+$db->close();
 ?>

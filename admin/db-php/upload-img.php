@@ -15,13 +15,15 @@ if (isset($_POST["upload-button"]) && !empty($_FILES["file"]["name"]) && !empty(
     $name = $_POST["title"];
     // Allow certain file formats
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
-    if (in_array($fleType, $allowTypes)) {
+    if (in_array($fileType, $allowTypes)) {
         // Upload fiile to server
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
             // Insert image file name into database
             $insert = $db->query("INSERT into calrouselimg (id, name, file_name, uploaded_on, status) VALUES (NULL,'" . $name . "','" . $fileName . "', NOW(),0)");
             if ($insert) {
                 $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
+                $db->close();
+                $insert = '';
             } else {
                 $statusMsg = "File upload failed, please try again.";
             }
@@ -41,8 +43,3 @@ if (isset($_POST["upload-button"]) && !empty($_FILES["file"]["name"]) && !empty(
 // Display status message
 // echo $statusMsg;
 // echo "<script type='text/javascript'>alert('$statusMsg');</script>";
-
-
-if(isset($_POST['imageName'])){
-    
-}
