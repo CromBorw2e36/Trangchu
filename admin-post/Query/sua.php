@@ -1,12 +1,33 @@
 <?php
-include './Query/db.php';
-if (isset($_POST['Posts']) || isset($_POST['savePost'])) {
-    UploadPost($conn);
+include './db.php';
+//chức năng edit
+$id = "";
+$title = "";
+$content = "";
+$kind = "";
+$statusSelect = "";
+
+if(isset($_GET['idEdit'])){
+    $id = $_GET['idEdit'];
+    $Select = "SELECT * FROM `admin_post` WHERE id = $id";
+    $result = $conn->query($Select);
+    //gán giá trị cho từng biến để dễ truy vấn hơn
+    $row = $result->fetch_assoc();
+    $title = $row['title'];
+    $content = $row['content'];
+    $kind = $row['kind'];
+    $statusSelect = $row['status'];
 }
+
+//chức năng xóa
 if(isset($_GET['idDelete'])){
-    $id = $_GET['idDelete'];
-    $Delete = "DELETE FROM admin_post WHERE id = ".$id;
+    $idDelete = $_GET['idDelete'];
+    $Delete = "DELETE FROM admin_post WHERE id = ".$idDelete;
     $conn->query($Delete);
+}
+if(isset($_POST['SaveEdit'])){
+    QueryInsert($conn,$id,$statusSelect);
+    header('location: ../index.php');
 }
 ?>
 
@@ -31,16 +52,17 @@ if(isset($_GET['idDelete'])){
 </head>
 
 <body>
-        #header
+    #header
     <section class="container-fluid d-flex justify-content-center text-center">
         <form action="" method="POST">
             <div class="row container">
-                <div class="col-8  p-5 mb-4 shadow">
-                    <div class="row">
-                        <input name="NameContent" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" placeholder='Tiêu đề bài viết'>
+                <div class="col-8  p-4">
+
+                    <div class="row mt-3">
+                        <input name="NameContent" class="col-12 rounded-3" type="text" placeholder='Tiêu đề bài viết' value="<?php echo $title ?>">
                     </div>
                     <div class="row mt-3">
-                        <textarea class="col-12" name="textareaContent" id="textarea" placeholder="Nội dung"    ></textarea>
+                        <textarea class="col-12" name="textareaContent" id="textarea" placeholder="Nội dung"><?php echo $content ?></textarea>
                     </div>
                 </div>
                 <div class="col-4 p-4">
@@ -55,10 +77,6 @@ if(isset($_GET['idDelete'])){
                             </div>
                             <hr>
                             <div class="p-3 pt-0">
-                                <div class="d-flex justify-content-between pb-2">
-                                    <input type="submit" name="savePost" class="btn btn-primary" value="Lưu lại">
-                                    <input type="button" class="btn btn-primary"name="review" value="Xem trước">
-                                </div>
                                 <div>
                                     <div>
                                         <p>
@@ -87,7 +105,8 @@ if(isset($_GET['idDelete'])){
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-end">
-                                    <input type="submit" value="Công bố" name="Posts" class="btn btn-success justyfi">
+                                    <!-- dẫn đến trang khác cho xem sau khi cập nhật lại -> trang đó làm mới thì sẽ chuyển sang trang đầu tiền  -->
+                                    <input type="submit" name="SaveEdit" class="btn btn-success" value="Lưu lại">
                                 </div>
                             </div>
                         </div>
@@ -96,23 +115,23 @@ if(isset($_GET['idDelete'])){
                             <hr>
                             <ul class="list-unstyled p-3 pt-0">
                                 <li class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" checked>
+                                    <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if ($kind == 'Trích dẫn') echo 'checked' ?>>
                                     <label class="form-check-label" for="radioKind1">Trích dẫn</label>
                                 </li>
                                 <li class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioKind" value="Bài viết" id="radioKind2">
+                                    <input class="form-check-input" type="radio" name="radioKind" value="Bài viết" id="radioKind2" <?php if ($kind == 'Bài viết') echo 'checked' ?>>
                                     <label class="form-check-label" for="radioKind2">Bài viết</label>
                                 </li>
                                 <li class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioKind" value="Hướng dẫn" id="radioKind3">
+                                    <input class="form-check-input" type="radio" name="radioKind" value="Hướng dẫn" id="radioKind3" <?php if ($kind == 'Hướng dẫn') echo 'checked' ?>>
                                     <label class="form-check-label" for="radioKind3">Hướng dẫn</label>
                                 </li>
                                 <li class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioKind" value="Thông tin chung" id="radioKind4">
+                                    <input class="form-check-input" type="radio" name="radioKind" value="Thông tin chung" id="radioKind4" <?php if ($kind == 'Thông tin chung') echo 'checked' ?>>
                                     <label class="form-check-label" for="radioKind4">Thông tin chung</label>
                                 </li>
                                 <li class="form-check">
-                                    <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5">
+                                    <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5" <?php if ($kind == 'Giới thiệu') echo 'checked' ?>>
                                     <label class="form-check-label" for="radioKind5">Giới thiệu</label>
                                 </li>
                             </ul>
@@ -138,7 +157,7 @@ if(isset($_GET['idDelete'])){
                             </thead>
                             <tbody>
                                 <?php
-                                    FillPostToTable($conn,$linkPostpageEdit, $linkPostpageDelete);
+                                    FillPostToTable($conn,$linkEditpageEdit, $linkEditpgaeDelete);
                                 ?>
                             </tbody>
                         </table>

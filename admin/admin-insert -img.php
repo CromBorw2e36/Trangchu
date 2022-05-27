@@ -34,7 +34,7 @@ include './db-php/upload-img.php';
                                 <div class="default">Vui lòng chọn lại tệp hình ảnh</div>
                             </div>
                         </div>
-                        <div class="form-group text-center ">
+                        <div class="form-group text-center">
                             <button name="upload-button" class="text-center rounded border bg-success text-light" type="submit">Tải lên</button>
                         </div>
                     </form>

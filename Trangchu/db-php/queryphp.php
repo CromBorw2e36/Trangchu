@@ -30,6 +30,8 @@ function showPost($connect)
     $select = "SELECT id, title, content, status, time, kind FROM admin_post WHERE status = 1 ORDER BY time DESC";
     $result = $connect->query($select);
     $count = 0;
+    $NumberElement = $result->num_rows; // lấy só lượng phần tử trong đây
+    $lenght = 12 / $NumberElement; // chiều dài chia cột
     while ($row = $result->fetch_assoc()) {
         if ($count == 4)
             break;
@@ -38,7 +40,7 @@ function showPost($connect)
         $title = $row['title'];
         $content = $row['content'];
 ?>
-        <div class="col-lg-3 col-md-6 col-6">
+        <div class="col-lg-<?php echo $lenght ?> col-md-<?php echo $lenght ?> col-<?php echo $lenght ?>">
             <h3 class='text-center' style='height: 75px;'><?php echo $title; ?></h3>
             <?php echo $content ?>
         </div>
