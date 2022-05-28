@@ -26,15 +26,7 @@ include './db-php/queryphp.php';
             </div>
             <div class="carousel-inner">
                 <!-- nếu sau này không thấy hình thì có thể do lỗi sai đường dẫn   -->
-                <div class="carousel-item active">
-                    <img src="<?php echo $arrayImg[0]['imageURL'] ?>" class="d-block w-100" alt="<?php echo $arrayImg[1]['name'] ?>">
-                </div>
-                <div class="carousel-item">
-                    <img src="<?php echo $arrayImg[1]['imageURL'] ?>" class="d-block w-100" alt="<?php echo $arrayImg[1]['name'] ?>">
-                </div>
-                <div class="carousel-item">
-                    <img src="<?php echo $arrayImg[2]['imageURL'] ?>" class="d-block w-100" alt="<?php echo $arrayImg[2]['name'] ?>">
-                </div>
+                <?php ShowImgCarousel($arrayImg); ?>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -57,7 +57,6 @@ if(isset($_POST['SaveEdit'])){
         <form action="" method="POST">
             <div class="row container">
                 <div class="col-8  p-4">
-
                     <div class="row mt-3">
                         <input name="NameContent" class="col-12 rounded-3" type="text" placeholder='Tiêu đề bài viết' value="<?php echo $title ?>">
                     </div>

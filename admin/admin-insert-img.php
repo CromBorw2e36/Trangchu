@@ -1,5 +1,8 @@
 <?php
+include './db-php/dbConfig.php';
 include './db-php/upload-img.php';
+include './db-php/xoa.php';
+include "./db-php/hienthitrangchu.php";
 ?>
 <!doctype html>
 <html lang="en">

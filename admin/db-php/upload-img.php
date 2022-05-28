@@ -1,6 +1,5 @@
 <?php
 // Include the database configuration file
-include 'dbConfig.php';
 $statusMsg = '';
 // File upload path
 $targetDir = "uploads/";
